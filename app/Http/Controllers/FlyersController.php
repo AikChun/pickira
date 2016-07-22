@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Http\Requests\FlyerRequest;
+use App\Flyer;
 
 class FlyersController extends Controller
 {
@@ -19,6 +19,14 @@ class FlyersController extends Controller
         return view('flyers.create');
     }
 
+    public function store(FlyerRequest $request)
+    {
+        // persist form data
+        Flyer::create($request->all());
 
+        // flash messaging
 
+        //redirect back to form
+        return redirect()->back();
+    }
 }
