@@ -4,6 +4,7 @@
 <title>Pickira</title>
 <link rel="stylesheet" href="/css/app.css">
 <link rel="stylesheet" href="/css/libs.css">
+@yield('styles.header')
 
 </head>
 <body>
@@ -31,6 +32,8 @@
     @yield('content')
 </div>
 <script src="/js/libs.js"></script>
+@yield('scripts.footer')
+
 @include('flash')
 </body>
 </html>

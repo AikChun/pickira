@@ -9,7 +9,7 @@ class Photo extends Model
     protected $table = 'flyer_photos';
 
     protected $fillable = [
-        'photo'
+        'path'
     ];
     public function flyer()
     {
