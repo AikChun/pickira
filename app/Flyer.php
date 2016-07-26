@@ -24,14 +24,20 @@ class Flyer extends Model
      * @param string $street
      * @return Builder $query
      */
-    public function scopeLocatedAt($query, $zip, $street)
+    public static function locatedAt($zip, $street)
     {
         $street = str_replace('-', ' ', $street);
-        return $query->where(compact('zip', 'street'))->first();
+
+        return static::where(['zip' => $zip, 'street' => $street])->first();
     }
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
     }
 
     public function getPriceAttribute($price)

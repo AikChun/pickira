@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\FlyerRequest;
 use App\Flyer;
+use App\Photo;
 
 class FlyersController extends Controller
 {
@@ -22,16 +23,13 @@ class FlyersController extends Controller
 
     public function addPhoto($zip, $street, Request $request)
     {
-        // find the flyer
-        $flyer = Flyer::locatedAt($zip, $street);
+        $this->validate($request, [
+            'photo' => 'required|mimes:jpg,jpeg,png,bmp'
+        ]);
 
-        // prep the name of the photo
-        $file = $request->file('file');
-        $filename = time().$file->getClientOriginalName();
+        $photo = Photo::fromForm($request->file('photo'));
 
-        if ($flyer->photos()->create(['path' => "/flyers/photos/{$filename}"])) {
-            $file->move('flyers/photos', $filename);
-        }
+        Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
         return 'Done uploading photo!';
     }
