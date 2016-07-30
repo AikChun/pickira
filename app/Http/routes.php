@@ -14,6 +14,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 
+Route::post('flyers/store', 'FlyersController@store');
 Route::resource('flyers', 'FlyersController');
 Route::get('{zip}/{street}', 'FlyersController@show');
 Route::post('{zip}/{street}/photos', ['as' => 'store_photos', 'uses' => 'FlyersController@addPhoto']);
